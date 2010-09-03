@@ -11,7 +11,7 @@ $(document).ready(function(){
 function GetNewRandom() {
 
 		$.ajax({
-			url: "http://php/api/7digital.php",
+			url: "http://php/api/randomiser.php",
 			dataType: "json",
 			type: "GET",				
 			cache: false,			
@@ -44,8 +44,9 @@ function OutputMultipleTrack(result) {
 function OutputSingleTrack(result) {
 	track = result.response.track;	
 	bigTrack = track.release.image.replace("_50", "_350"); // HACKd
-					
-	$("h1#albumTitle").html(track.release.title);	
+		
+	$("h1#artistTitle").html(track.artist.name);		
+	$("h2#albumTitle").html(track.release.title);	
 	imageTag = $("img#albumCover").attr("src", bigTrack);	
 	$("div#imagePlaceHolder").append(imageTag);
 	$("a#trackLink").attr("href", track.url).html(track.title);	
@@ -66,7 +67,8 @@ function BuildPreview(countryId, trackId) {
 <tr>
 <td align="center" height="400">
 	<div id="output" style="height:450px">
-		<h1 id="albumTitle"></h1>
+		<h1 id="artistTitle"></h1>
+		<h2 id="albumTitle"></h2>
 		<div id="imagePlaceHolder"><img id="albumCover" /></div><br />
 		<a id="trackLink"></a>
 	</div>	
