@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>7Digital API JSON/Jquery example</title>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.js"></script>
 <script type="text/javascript">
 
@@ -47,8 +48,7 @@ function OutputSingleTrack(result) {
 		
 	$("h1#artistTitle").html(track.artist.name);		
 	$("h2#albumTitle").html(track.release.title);	
-	imageTag = $("img#albumCover").attr("src", bigTrack);	
-	$("div#imagePlaceHolder").append(imageTag);
+	$("img#albumCover").attr("src", bigTrack);	
 	$("a#trackLink").attr("href", track.url).html(track.title);	
 	
 	trackId = track["@attributes"].id;
@@ -65,11 +65,11 @@ function BuildPreview(countryId, trackId) {
 <body>
 <table width="100%">
 <tr>
-<td align="center" height="400">
-	<div id="output" style="height:450px">
+<td align="center">
+	<div id="output">
 		<h1 id="artistTitle"></h1>
 		<h2 id="albumTitle"></h2>
-		<div id="imagePlaceHolder"><img id="albumCover" /></div><br />
+		<div id="imagePlaceHolder" style="height:350px"><img id="albumCover" /></div><br />
 		<a id="trackLink"></a>
 	</div>	
 </td>
