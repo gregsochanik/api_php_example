@@ -1,0 +1,78 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){	
+		GetNewRandom();		
+		$("#randomLink").click(GetNewRandom);
+});
+
+function GetNewRandom() {
+		$.ajax({
+			url: "http://php/api/7digital.php",
+			dataType: "json",
+			type: "GET",				
+			cache: false,			
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				alert(errorThrown);
+			},
+			success: function(result) {					
+				if(result.response.track == undefined) {					
+					OutputMultipleTrack(result) 
+				} else {
+					OutputSingleTrack(result) 
+				}
+			},
+		});	
+}
+
+function OutputMultipleTrack(result) {
+	$.each(result.response.tracks.track, function(i,track){
+	
+		trackImage = $("<img/>").attr("src", track.release.image);
+		
+		linkPlaceHolder = $("<a/>").attr("href", track.url)
+				.html(track.title)
+				.prepend(trackImage);
+				
+		$("#output").html(linkPlaceHolder)
+	});
+}
+
+function OutputSingleTrack(result) {
+	track = result.response.track;	
+	bigTrack = track.release.image.replace("_50", "_350"); // HACKd
+					
+	$("h1#albumTitle").html(track.release.title);	
+	$("img#albumCover").attr("src", bigTrack);	
+	$("a#trackLink").attr("href", track.url).html(track.title);	
+	
+	trackId = track["@attributes"].id;
+	previewUrl = BuildPreview(34, trackId); 
+}
+
+function BuildPreview(countryId, trackId) {
+	previewUrl = "http://previews.7digital.com/clips/" + countryId + "/" + trackId + ".clip.mp3";
+	return previewUrl;
+}
+
+</script>
+</head>
+<body>
+<table width="100%">
+<tr>
+<td align="center" height="400">
+	<div id="output" style="height:450px">
+		<h1 id="albumTitle"></h1>
+		<img id="albumCover" /><br />
+		<a id="trackLink"></a>
+	</div>	
+</td>
+<tr>
+<td align="center"><button id="randomLink" style="display:block">Rrrrrrrrandomise!</button></td>
+</tr>
+</tr>
+</table>
+</body>
+</html>
