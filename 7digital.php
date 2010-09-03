@@ -20,7 +20,7 @@
 	
 	
 	// create random	
-	$json = GetRandom(1, 100000);
+	$json = GetRandom(1, 1000000);
 	
 	//header("Content-type: txt/json");
 	echo($json);
