@@ -12,15 +12,19 @@ $(document).ready(function(){
 function GetNewRandom() {
 
 		$.ajax({
-			url: "http://php/api/randomiser.php",
+			url: "randomiser.php",
 			dataType: "json",
 			type: "GET",				
 			cache: false,			
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				alert(errorThrown);
 			},
-			success: function(result) {					
-				if(result.response.track == undefined) {					
+			success: function(result) {		
+				if(result.response === undefined) {
+					console.log(result);
+					return GetNewRandom();
+				}
+				if(result.response.track === undefined) {					
 					OutputMultipleTrack(result) 
 				} else {
 					OutputSingleTrack(result) 

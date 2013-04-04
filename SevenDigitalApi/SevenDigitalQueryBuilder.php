@@ -19,9 +19,10 @@
 				$url.= $key."=".$value;
 				if($i < sizeof($this->parameters)) {
 					$url .= "&";
-				}
+				}		
 				$i++;
 			}
+			$url = trim($url, "\&");
 			return $url;
 		}
 	}
