@@ -5,7 +5,7 @@
 	function GetRandom($from, $to) {
 		//print "here";
 		$api = new SevenDigitalApi();
-		$api->ConsumerId = "test-api";
+		$api->ConsumerId = "YOUR_KEY_HERE";
 		$api->Country = "GB";
 		$api->OutputType="json";
 	
